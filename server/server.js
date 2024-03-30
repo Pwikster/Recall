@@ -5,7 +5,8 @@ import dotenv from 'dotenv'; // For loading environment variables from a .env fi
 import dbConnect from './config/mongoose.config.js'; // Database connection function
 
 // Import routers for handling specific path requests
-//! TO BE IMPLEMENTED
+import userRouter from './routes/user.routes.js';
+//! Location, category and item TO BE IMPLEMENTED
 
 // Initialize the express application
 const app = express();
@@ -22,6 +23,11 @@ const PORT = process.env.PORT || 3000;
 
 // Establish a connection to the database
 dbConnect();
+
+// Define routes
+// Mount the userRouter to handle requests starting with '/api'
+//! location, category, and item TO BE IMPLEMENTED
+app.use('/api', userRouter);
 
 // Start listening on the defined PORT, with a callback to log when the server is running
 app.listen(PORT, () => {
