@@ -12,6 +12,12 @@
 import { AuthProvider, useAuth } from './context/AuthProvider'
 import ProtectedRoute from './components/ProtectedRoute'
 
+
+// display (pages) imports
+import DisplayLogin from './views/DisplayLogin'
+import DisplayRegister from './views/DisplayRegister'
+
+//utility imports
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -23,6 +29,13 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <Routes>
+          {/*
+          Login and register routes.
+          '/' to DisplayLogin
+          '/register' DisplayRegister
+          */}
+          <Route path="/" element={<DisplayLogin />} />
+          <Route path="/register" element={<DisplayRegister />} />
 
         </Routes>
       </BrowserRouter>
