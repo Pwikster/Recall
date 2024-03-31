@@ -11,6 +11,7 @@ import DisplayRegister from './views/DisplayRegister'
 import DisplayDashboard from './views/DisplayDashboard'
 
 import DisplayLocations from './views/DisplayLocations'
+import DisplayCategories from './views/DisplayCategories'
 
 //AuthProvider stores token and userId in state globally
 import { AuthProvider, useAuth } from './context/AuthProvider'
@@ -52,6 +53,12 @@ function App() {
             <Route path="/locations" element={
               <ProtectedRoute>
                 <DisplayLocations />
+              </ProtectedRoute>
+            } />
+
+            <Route path="/categories" element={
+              <ProtectedRoute>
+                <DisplayCategories />
               </ProtectedRoute>
             } />
 
