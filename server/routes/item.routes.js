@@ -20,5 +20,9 @@ itemRouter.put('/items/:id', authMiddleware, ItemController.updateItem);
 // Route to delete a specific item by its ID. Requires authentication.
 itemRouter.delete('/items/:id', authMiddleware, ItemController.deleteItem);
 
+// Route to get items filtered by location and/or category. Accessible to authenticated users.
+itemRouter.get('/items/filter', authMiddleware, ItemController.getItemsByLocationAndCategory);
+
+
 // Export the router for mounting in the main application.
 export default itemRouter;

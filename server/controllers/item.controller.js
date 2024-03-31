@@ -93,6 +93,32 @@ const ItemController = {
             res.status(500).json({ message: `Error deleting item: ${error.message}` });
         }
     },
+
+    // Adding a new function within the ItemController to filter items based on location and category.
+    getItemsByLocationAndCategory: async (req, res) => {
+        const { location, category } = req.query;
+
+        try {
+            // Constructing the query object based on provided filters.
+            let query = {};
+            if (location) query.location = location;
+            if (category) query.category = category;
+
+            // Searching for items that match the query criteria.
+            const filteredItems = await Item.find(query).populate('location').populate('category');
+            // If no items match the criteria, return an appropriate message.
+            if (!filteredItems.length) {
+                return res.status(404).json({ message: "No items found matching the criteria." });
+            }
+
+            // Success! Returning the filtered list of items.
+            res.json(filteredItems);
+        } catch (error) {
+            // Should any errors arise during the filtering process, we provide details of the mishap.
+            res.status(500).json({ message: `Error fetching items by location and category: ${error.message}` });
+        }
+    },
+
 }
 
 // And thus concludes our narrative on the ItemController.
