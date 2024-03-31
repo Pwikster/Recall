@@ -8,6 +8,8 @@ import Layout from './components/Layout'
 import DisplayLogin from './views/DisplayLogin'
 import DisplayRegister from './views/DisplayRegister'
 
+import DisplayDashboard from './views/DisplayDashboard'
+
 //AuthProvider stores token and userId in state globally
 import { AuthProvider, useAuth } from './context/AuthProvider'
 import ProtectedRoute from './components/ProtectedRoute'
@@ -39,6 +41,12 @@ function App() {
                   <ComponentYouAreRoutingTo />
                 </ProtectedRoute>
                 } /> */}
+            <Route path="/dashboard" element={
+              <ProtectedRoute>
+                <DisplayDashboard />
+              </ProtectedRoute>
+            } />
+
 
           </Route>
 

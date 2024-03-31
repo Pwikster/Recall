@@ -21,7 +21,6 @@ const DisplayLogin = () => {
             const response = await axios.post('http://localhost:8000/api/login', { email, password })
             login(response.data) // Pass the response data to the login function to manage application state.
 
-            //! navigate to dashboard page TO BE IMPLEMENTED
             navigate('/dashboard') // Navigate to the dashboard upon successful login.
         } catch (error) {
             console.error('Login failed:', error)
