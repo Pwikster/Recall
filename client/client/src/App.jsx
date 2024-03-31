@@ -12,6 +12,8 @@ import DisplayDashboard from './views/DisplayDashboard'
 
 import DisplayLocations from './views/DisplayLocations'
 import DisplayCategories from './views/DisplayCategories'
+import DisplayAddItem from './views/DisplayAddItem'
+import DisplayEditItem from './views/DisplayEditItem'
 
 //AuthProvider stores token and userId in state globally
 import { AuthProvider, useAuth } from './context/AuthProvider'
@@ -59,6 +61,18 @@ function App() {
             <Route path="/categories" element={
               <ProtectedRoute>
                 <DisplayCategories />
+              </ProtectedRoute>
+            } />
+
+            <Route path="/additem" element={
+              <ProtectedRoute>
+                <DisplayAddItem />
+              </ProtectedRoute>
+            } />
+
+            <Route path="/edititem/:id" element={
+              <ProtectedRoute>
+                <DisplayEditItem />
               </ProtectedRoute>
             } />
 
