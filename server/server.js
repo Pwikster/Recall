@@ -6,7 +6,9 @@ import dbConnect from './config/mongoose.config.js'; // Database connection func
 
 // Import routers for handling specific path requests
 import userRouter from './routes/user.routes.js';
-//! Location, category and item TO BE IMPLEMENTED
+import locationRouter from './routes/location.routes.js';
+import categoryRouter from './routes/category.routes.js';
+import itemRouter from './routes/item.routes.js';
 
 // Initialize the express application
 const app = express();
@@ -25,9 +27,11 @@ const PORT = process.env.PORT || 3000;
 dbConnect();
 
 // Define routes
-// Mount the userRouter to handle requests starting with '/api'
-//! location, category, and item TO BE IMPLEMENTED
+// Mount the routers to handle requests starting with '/api'
 app.use('/api', userRouter);
+app.use('/api', locationRouter);
+app.use('/api', categoryRouter);
+app.use('/api', itemRouter);
 
 // Start listening on the defined PORT, with a callback to log when the server is running
 app.listen(PORT, () => {
