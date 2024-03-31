@@ -1,5 +1,6 @@
 // Importing our main characters: the Item model for inventory items.
 import Item from '../models/item.model.js';
+import mongoose from 'mongoose';
 
 // Defining the ItemController, our central hub for orchestrating item-related operations.
 const ItemController = {
@@ -94,30 +95,43 @@ const ItemController = {
         }
     },
 
-    // Adding a new function within the ItemController to filter items based on location and category.
+
     getItemsByLocationAndCategory: async (req, res) => {
-        const { location, category } = req.query;
-
+        const { location, category } = req.params;
+    
         try {
-            // Constructing the query object based on provided filters.
             let query = {};
-            if (location) query.location = location;
-            if (category) query.category = category;
-
-            // Searching for items that match the query criteria.
-            const filteredItems = await Item.find(query).populate('location').populate('category');
-            // If no items match the criteria, return an appropriate message.
-            if (!filteredItems.length) {
-                return res.status(404).json({ message: "No items found matching the criteria." });
+            
+            // Ensure the location and category strings are valid ObjectIds
+            if (location && mongoose.isValidObjectId(location)) {
+                query.location = new mongoose.Types.ObjectId(location);
+            } else if (location) {
+                return res.status(400).json({ message: "Invalid location ID format." });
             }
-
-            // Success! Returning the filtered list of items.
+            
+            if (category && mongoose.isValidObjectId(category)) {
+                query.category = new mongoose.Types.ObjectId(category);
+            } else if (category) {
+                return res.status(400).json({ message: "Invalid category ID format." });
+            }
+    
+            const filteredItems = await Item.find(query).populate('location').populate('category');
+            
+            if (filteredItems.length === 0) {
+                return res.status(404).json({ message: "No items found matching the specified location and category." });
+            }
+    
             res.json(filteredItems);
         } catch (error) {
-            // Should any errors arise during the filtering process, we provide details of the mishap.
+            console.error("Error fetching items by location and category:", error);
             res.status(500).json({ message: `Error fetching items by location and category: ${error.message}` });
         }
     },
+    
+    
+    
+    
+
 
 }
 
